@@ -26,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
+// creating a new task
 app.post("/todo", (req: Request, res: Response) => {
   const newTask: ITask = {
     _id: crypto.randomUUID(),
@@ -35,9 +36,26 @@ app.post("/todo", (req: Request, res: Response) => {
   };
   const task = new Task(newTask);
   task.save().then(() => {
+    res.statusCode = 201;
     res.send(newTask);
   });
 });
+
+// getting all tasks
+app.get("/todo", (req: Request, res: Response) => {
+  Task.find({}).then((tasks: [ITask]) => {
+    res.send(tasks);
+  });
+});
+
+// getting a specific task
+app.get("/todo/:id", (req: Request, res: Response) => {
+  Task.findById(req.params.id).then((task: ITask) => {
+    res.send(task);
+  });
+});
+
+export default app;
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
