@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 
+app.use(express.json());
+
 mongoose
   .connect("mongodb://localhost:27017/TodoBackend")
   .then(console.log("DB connected"));
@@ -30,8 +32,8 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/todo", (req: Request, res: Response) => {
   const newTask: ITask = {
     _id: crypto.randomUUID(),
-    name: "testTask",
-    tags: ["personal"],
+    name: req.body.name,
+    tags: req.body.tags,
     created: Date.now(),
   };
   const task = new Task(newTask);
