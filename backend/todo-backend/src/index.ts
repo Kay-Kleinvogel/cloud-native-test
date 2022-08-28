@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { ITask } from "../interfaces/ITask";
+import { INote } from "./interfaces/ITask";
 
 dotenv.config();
 
@@ -16,43 +16,47 @@ mongoose
   .connect("mongodb://localhost:27017/TodoBackend")
   .then(console.log("DB connected"));
 
-const taskSchema = new mongoose.Schema({
+const noteSchema = new mongoose.Schema({
   _id: String,
   name: String,
   tags: [String],
+  participants: [String],
+  notes: String,
   created: Number,
 });
-const Task = mongoose.model("Task", taskSchema);
+const Note = mongoose.model("Note", noteSchema);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-// creating a new task
-app.post("/todo", (req: Request, res: Response) => {
-  const newTask: ITask = {
+// creating a new note
+app.post("/note", (req: Request, res: Response) => {
+  const newNote: INote = {
     _id: crypto.randomUUID(),
     name: req.body.name,
     tags: req.body.tags,
+    participants: req.body.participants,
+    notes: req.body.notes,
     created: Date.now(),
   };
-  const task = new Task(newTask);
-  task.save().then(() => {
+  const note = new Note(newNote);
+  note.save().then(() => {
     res.statusCode = 201;
-    res.send(newTask);
+    res.send(newNote);
   });
 });
 
-// getting all tasks
-app.get("/todo", (req: Request, res: Response) => {
-  Task.find({}).then((tasks: [ITask]) => {
+// getting all notes
+app.get("/note", (req: Request, res: Response) => {
+  Note.find({}).then((tasks: [INote]) => {
     res.send(tasks);
   });
 });
 
 // getting a specific task
-app.get("/todo/:id", (req: Request, res: Response) => {
-  Task.findById(req.params.id).then((task: ITask) => {
+app.get("/note/:id", (req: Request, res: Response) => {
+  Note.findById(req.params.id).then((task: INote) => {
     res.send(task);
   });
 });
