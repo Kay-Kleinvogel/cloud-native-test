@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { ITask } from "./interfaces/ITask";
+import { ITask } from "../interfaces/ITask";
 
 dotenv.config();
 
