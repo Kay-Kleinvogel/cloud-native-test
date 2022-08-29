@@ -13,7 +13,7 @@ const crypto = require("crypto");
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/TodoBackend")
+  .connect("mongodb://172.17.0.2:27017/TodoBackend")
   .then(console.log("DB connected"));
 
 const noteSchema = new mongoose.Schema({
