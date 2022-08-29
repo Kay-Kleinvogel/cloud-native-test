@@ -12,9 +12,7 @@ const crypto = require("crypto");
 
 app.use(express.json());
 
-mongoose
-  .connect("mongodb://172.17.0.2:27017/TodoBackend")
-  .then(console.log("DB connected"));
+mongoose.connect(process.env.MONGODB_URI).then(console.log("DB connected"));
 
 const noteSchema = new mongoose.Schema({
   _id: String,
