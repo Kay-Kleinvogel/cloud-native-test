@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { notStrictEqual } from "assert";
 import React from "react";
-import { INote } from "../../Interfaces/INotes";
+import { INote } from "../../../Interfaces/INotes";
 
 interface IProps {
   note: INote;
