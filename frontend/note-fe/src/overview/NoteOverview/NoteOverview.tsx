@@ -3,8 +3,10 @@ import {
   Card,
   CardActions,
   CardContent,
+  Chip,
   Typography,
 } from "@mui/material";
+import { notStrictEqual } from "assert";
 import React from "react";
 import { INote } from "../../Interfaces/INotes";
 
@@ -24,11 +26,20 @@ const NoteOverview = ({ note }: IProps) => {
         <Typography variant='h5' component='h2'>
           {note.name}
         </Typography>
-        <Typography variant='body2' component='p'>
-          {note.notes}
-        </Typography>
+        {note.tags.map((tag, index) => {
+          return <Chip label={tag} key={index} />;
+        })}
       </CardContent>
-      <CardActions>
+      <CardActions
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Button size='small' variant='contained'>
+          View More
+        </Button>
+
         <Button size='small'>Edit Task</Button>
       </CardActions>
     </Card>

@@ -1,4 +1,13 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Button,
+  Fab,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { Container } from "@mui/system";
 import React from "react";
 import { INote } from "../Interfaces/INotes";
@@ -17,23 +26,36 @@ const Overview = () => {
     getData();
   }, []);
 
-  React.useEffect(() => {
-    console.log(notes);
-  }, [notes]);
-
   return (
-    <Container>
-      <Typography variant='h1' component='h1'>
-        Task Overview
-      </Typography>
-      <List>
+    <Container sx={{ mt: 3 }}>
+      <Grid container spacing={2}>
         {notes &&
           notes.map((note, index) => (
-            <ListItem key={index}>
+            <Grid item key={index}>
               <NoteOverview note={note} />
-            </ListItem>
+            </Grid>
           ))}
-      </List>
+        {(!notes || notes.length == 0) && (
+          <Typography>There are currently no notes.</Typography>
+        )}
+        <Fab
+          color='primary'
+          aria-label='add'
+          variant='extended'
+          component={Button}
+          style={{
+            margin: 0,
+            top: "auto",
+            right: 20,
+            bottom: 20,
+            left: "auto",
+            position: "fixed",
+          }}
+        >
+          <AddIcon sx={{ mr: 1 }} />
+          Add Task
+        </Fab>
+      </Grid>
     </Container>
   );
 };
