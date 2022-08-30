@@ -9,8 +9,15 @@ const port = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const cors = require("cors");
 
-app.use(express.json());
+app.use(
+  express.json(),
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+app.options("*", cors()); // include before other routes
 
 mongoose.connect(process.env.MONGODB_URI).then(console.log("DB connected"));
 
@@ -29,7 +36,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // creating a new note
-app.post("/note", (req: Request, res: Response) => {
+app.post("/notes", (req: Request, res: Response) => {
   const newNote: INote = {
     _id: crypto.randomUUID(),
     name: req.body.name,
@@ -46,14 +53,14 @@ app.post("/note", (req: Request, res: Response) => {
 });
 
 // getting all notes
-app.get("/note", (req: Request, res: Response) => {
+app.get("/notes", (req: Request, res: Response) => {
   Note.find({}).then((tasks: [INote]) => {
     res.send(tasks);
   });
 });
 
 // getting a specific task
-app.get("/note/:id", (req: Request, res: Response) => {
+app.get("/notes/:id", (req: Request, res: Response) => {
   Note.findById(req.params.id).then((task: INote) => {
     res.send(task);
   });
