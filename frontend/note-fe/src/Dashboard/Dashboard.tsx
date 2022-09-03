@@ -1,24 +1,12 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Fab,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Button, Fab, Toolbar, Typography } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
-import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import Overview from "./overview/Overview";
-import CreateNoteModal from "./CreateNoteModal/CreateNoteModal";
 
 const Dashboard = () => {
-  const [open, setOpen] = React.useState(false);
   return (
-    <>
+    <div className='Dashboard'>
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
@@ -29,14 +17,11 @@ const Dashboard = () => {
       <div className='content'>
         <Overview />
       </div>
-      <CreateNoteModal open={open} onClose={() => setOpen(false)} />
-
       <Fab
         color='primary'
         aria-label='add'
         variant='extended'
         component={Button}
-        onClick={() => setOpen(true)}
         style={{
           margin: 0,
           top: "auto",
@@ -49,7 +34,7 @@ const Dashboard = () => {
         <AddIcon sx={{ mr: 1 }} />
         Add Task
       </Fab>
-    </>
+    </div>
   );
 };
 
