@@ -20,11 +20,27 @@ const NoteOverview = ({ note }: IProps) => {
 
   const navigate = useNavigate();
 
-  const editTask = (note: INote) => {
+  const editNote = (note: INote) => {
     console.log(note);
 
     // navigate to edit page
     navigate("/edit/" + note._id);
+  };
+
+  const deleteNote = (note: INote) => {
+    console.log(note);
+
+    // delete the note
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(note),
+    };
+    fetch("http://localhost:8080/notes/" + note._id, requestOptions)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    // reload the page
+    window.location.reload();
   };
 
   return (
@@ -46,12 +62,20 @@ const NoteOverview = ({ note }: IProps) => {
           justifyContent: "space-between",
         }}
       >
-        <Button size='small' variant='contained'>
-          View More
+        <Button
+          size='small'
+          variant='text'
+          onClick={(event) => deleteNote(note)}
+        >
+          Delete Note
         </Button>
 
-        <Button size='small' onClick={(event) => editTask(note)}>
-          Edit Task
+        <Button
+          size='small'
+          variant='contained'
+          onClick={(event) => editNote(note)}
+        >
+          Open Note
         </Button>
       </CardActions>
     </Card>

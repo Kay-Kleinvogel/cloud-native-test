@@ -29,6 +29,16 @@ const EditNote = () => {
 
   const logData = (note: INote) => {
     console.log(note);
+
+    // update the data
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(note),
+    };
+    fetch("http://localhost:8080/notes/" + id, requestOptions)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return <Editor sendData={logData} noteObject={note} key={note._id} />;
