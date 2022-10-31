@@ -1,10 +1,10 @@
 import { Key } from "react";
 
 export interface INote {
-  _id: String;
-  name: String;
-  tags: [String];
-  participants: [String];
-  notes: String;
+  _id?: string;
+  name: string;
+  tags: [string];
+  participants: [string];
+  notes: string;
   created: number;
 }

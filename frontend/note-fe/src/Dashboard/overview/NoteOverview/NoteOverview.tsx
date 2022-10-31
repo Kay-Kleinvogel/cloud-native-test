@@ -36,9 +36,9 @@ const NoteOverview = ({ note }: IProps) => {
         <Typography variant='h5' component='h2'>
           {note.name}
         </Typography>
-        {note.tags.map((tag, index) => {
+        {/* {note.tags.map((tag, index) => {
           return <Chip label={tag} key={index} />;
-        })}
+        })} */}
       </CardContent>
       <CardActions
         style={{

@@ -10,15 +10,13 @@ import React from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { useNavigate, useParams } from "react-router-dom";
 import { INote } from "../../Interfaces/INotes";
 
 const Editor = (props: any) => {
-  const [title, setTitle] = React.useState("Your Title");
-  const [text, setText] = React.useState("Your Content");
+  const [note, setNote] = React.useState<INote>(props.noteObject);
 
   const returnNote = () => {
-    props.sendData({ title: title, text: text });
+    props.sendData(note);
   };
 
   return (
@@ -38,27 +36,26 @@ const Editor = (props: any) => {
             label='Title'
             variant='outlined'
             margin='normal'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={note.name}
+            onChange={(e) => setNote({ ...note, name: e.target.value })}
           />
           <Divider />
           <TextField
             id='outlined-multiline-static'
             label='Your Content'
             multiline
-            defaultValue='Default Value'
             variant='outlined'
             margin='normal'
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={note.notes}
+            onChange={(e) => setNote({ ...note, notes: e.target.value })}
           />
         </div>
         <div className='preview' style={{ flex: "1", margin: "2rem" }}>
           <Typography variant='h3' style={{ margin: "1rem 0" }}>
-            {title}
+            {note.name}
           </Typography>
           <Divider />
-          <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
+          <ReactMarkdown children={note.notes} remarkPlugins={[remarkGfm]} />
         </div>
       </div>
       <Fab
