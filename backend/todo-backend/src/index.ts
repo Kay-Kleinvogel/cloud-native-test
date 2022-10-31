@@ -75,6 +75,13 @@ app.put("/notes/:id", (req: Request, res: Response) => {
   });
 });
 
+// deleting a specific task
+app.delete("/notes/:id", (req: Request, res: Response) => {
+  Note.findByIdAndDelete(req.params.id).then(() => {
+    res.send("Deleted");
+  });
+});
+
 export default app;
 
 app.listen(port, () => {
