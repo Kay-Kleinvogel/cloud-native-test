@@ -1,0 +1,12 @@
+import { INote } from "../Interfaces/INotes";
+
+const defaultNote: INote = {
+  _id: "1234567890",
+  name: "My Note",
+  tags: [""],
+  participants: [""],
+  notes: "My Content",
+  created: Date.now(),
+};
+
+export default defaultNote;

@@ -4,6 +4,7 @@ import React from "react";
 import Overview from "./overview/Overview";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import CreateNote from "../CreateNote/CreateNote";
+import Router from "../Router";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,10 +23,7 @@ const Dashboard = () => {
         </Toolbar>
       </AppBar>
       <div className='content'>
-        <Routes>
-          <Route path='/' element={<Overview />} />
-          <Route path='/create' element={<CreateNote />} />
-        </Routes>
+        <Router />
       </div>
     </div>
   );

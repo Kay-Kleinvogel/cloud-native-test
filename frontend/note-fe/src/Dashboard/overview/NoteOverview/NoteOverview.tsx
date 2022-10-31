@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { notStrictEqual } from "assert";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { INote } from "../../../Interfaces/INotes";
 
 interface IProps {
@@ -16,6 +17,15 @@ interface IProps {
 
 const NoteOverview = ({ note }: IProps) => {
   const date = new Date(note.created);
+
+  const navigate = useNavigate();
+
+  const editTask = (note: INote) => {
+    console.log(note);
+
+    // navigate to edit page
+    navigate("/edit/" + note._id);
+  };
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -40,7 +50,9 @@ const NoteOverview = ({ note }: IProps) => {
           View More
         </Button>
 
-        <Button size='small'>Edit Task</Button>
+        <Button size='small' onClick={(event) => editTask(note)}>
+          Edit Task
+        </Button>
       </CardActions>
     </Card>
   );
