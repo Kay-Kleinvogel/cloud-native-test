@@ -61,8 +61,17 @@ app.get("/notes", (req: Request, res: Response) => {
 
 // getting a specific task
 app.get("/notes/:id", (req: Request, res: Response) => {
+  console.log(req.params.id);
   Note.findById(req.params.id).then((task: INote) => {
     res.send(task);
+  });
+});
+
+// updating a specific task
+app.put("/notes/:id", (req: Request, res: Response) => {
+  console.log(req.body);
+  Note.findByIdAndUpdate(req.params.id, req.body).then(() => {
+    res.send(req.body);
   });
 });
 
